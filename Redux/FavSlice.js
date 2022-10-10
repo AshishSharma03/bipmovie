@@ -4,8 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState =[];
 
 
-const watchlistSlice = createSlice({
-    name:'WhatchLater',
+const FavSlice = createSlice({
+    name:'Fav',
     initialState,
     reducers :{
         add(state,action){
@@ -18,5 +18,5 @@ const watchlistSlice = createSlice({
 })
 
 
-export const {add ,remove} = watchlistSlice.actions;
-export default watchlistSlice.reducer
+export const {add ,remove} = FavSlice.actions;
+export default FavSlice.reducer

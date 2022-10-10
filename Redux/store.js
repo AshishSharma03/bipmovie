@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import WhatchLaterReducer from './whatchlaterSlice'
+import FavReducer from './FavSlice'
 import MoviesReducer from './MovieSlice'
 const store = configureStore({
     reducer :{
-        Wacthlater : WhatchLaterReducer,
+        fav : FavReducer,
         Movies : MoviesReducer,
     }
 })

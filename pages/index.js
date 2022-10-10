@@ -1,74 +1,27 @@
-import {
-  Box,
-  Container,
-  Grid,
-  Typography,
-  CircularProgress,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import ItemBox from "../Components/ItemBox";
-import Navbar from "../Components/Navbar";
-import Loading from "../Components/Validations/Loading";
-import { featchMovies } from "../Redux/MovieSlice";
-import { STATUSES } from "../Redux/MovieSlice";
-import Error from "../Components/Validations/Error";
-
-
-
+import { Box, Pagination } from '@mui/material';
+import React from 'react'
+import Navbar from '../Components/Navbar'
+import Main from './Main'
+import {  useDispatch } from "react-redux";
+import { featchMovies } from "../Redux/MovieSlice"
 function Index() {
-  const { data, status } = useSelector((state) => state.Movies);
-  const dispacth = useDispatch();
-  useEffect(() => {
-    dispacth(featchMovies(1));
-  }, []);
+  const [page, setPage] = React.useState(2);
+  const dispacth = useDispatch()
 
-  if (status === STATUSES.LOADING) {
-    return <Loading/>
-  }
-
-  if (status === STATUSES.ERROR) {
-    return <Error/>;
-  }
+  const handleChange = (event, value) => {
+    dispacth(featchMovies(value));
+    setPage(value)
+  };
 
   return (
     <>
-      <Navbar />
-      <Container maxWidth="xl">
-        <Box sx={{ padding: "" }}>
-          {data != undefined ? (
-            <Grid
-              container
-              spacing={1}
-              columnSpacing={2}
-              rowSpacing={5}
-              justifyContent={"center"}
-            >
-              {data.results?.map((a) => {
-                return (
-                  <React.Fragment key={a.id}>
-                    <Grid item xs={12} sm={6} md={4} xl={3}>
-                      <ItemBox
-                        id={a.id}
-                        poster={a.poster_path}
-                        title={a.title}
-                        relaseDate={a.release_date}
-                        rating={a.vote_average}
-                        orgLang={a.original_language}
-                      />
-                    </Grid>
-                  </React.Fragment>
-                );
-              })}
-            </Grid>
-          ) : (
-            <Typography sx={{ color: "red" }}>Loading</Typography>
-          )}
-        </Box>
-      </Container>
-      <Box sx={{ padding: "20px" }}>sas</Box>
+     <Navbar/> 
+       <Main  page={page} />
+       <Box sx={{ padding: "20px" ,position:"fixed",zIndex:1,display:'flex',flexDirection:"row",bottom:0,justifyContent:"center",alignItems:"center",width:"100%",background:"#ffffff"}}>
+      <Pagination count={10} page={page} onChange={handleChange} />
+      </Box>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

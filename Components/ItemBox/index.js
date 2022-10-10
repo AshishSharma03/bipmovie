@@ -3,12 +3,15 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { add, remove } from "../../Redux/FavSlice";
 
 
 
  const ItemBox = ({ id,poster, title, relaseDate, rating, orgLang }) => {
     const [like,setLike] = useState(false)
     const [load,setload]= useState(false)
+    const dispacth =  useDispatch()
 
     const route = useRouter()
     const Move=()=>{
@@ -17,6 +20,25 @@ import { useState } from "react";
         route.push(`/Movie/${id}`)
         setload(false)      
       },500)
+    }
+
+    const handleClick=()=>{
+      
+      if(!like){
+        dispacth(
+          add(
+            {id : id}
+            )
+            )
+          }
+          
+          if(like){
+            dispacth(
+              remove(id)
+              )
+            }
+            
+            setLike(!like)
     }
 
   return (
@@ -63,7 +85,7 @@ import { useState } from "react";
             </Typography>
             <Rating value={(rating * 10 * 5) / 100} precision={0.5} readOnly />
           </Stack>
-          <IconButton sx={{'&:hover':{color:"red"},color:`${(like)? "red": ""}`}}  onClick={()=>{setLike(!like)}}>
+          <IconButton sx={{'&:hover':{color:"red"},color:`${(like)? "red": ""}`}}  onClick={()=>{handleClick()}}>
             {(like)?
             <FavoriteIcon />
             :

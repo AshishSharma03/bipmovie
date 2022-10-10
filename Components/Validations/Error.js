@@ -18,7 +18,7 @@ function Error() {
     <div style={{display:"flex",justifyContent:"center",alignItems:"center",height:"90vh",flexDirection:"column",gap:"10px"}}>
             
             <ErrorIcon sx={{color:"#d9d9d9",fontSize:"100px"}}/>
-            <Typography sx={{color:"#d9d9d9",fontSize:"30px",fontWeight:"800"}}>
+            <Typography sx={{color:"#d9d9d9",fontSize:"30px",fontWeight:"800",textAlign:"center"}}>
                 <span style={{color:"#ff0040"}}>OOPS!</span> SOMETHING WENT WRONG!
             </Typography>
             <Button  variant='outlined' sx={{padding:"10px 20px"}} onClick={()=>{route.push('/')}} color="error"  >
